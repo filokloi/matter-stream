@@ -68,10 +68,16 @@ export function TeleporterConsole({ initialProject, onProjectLoaded }: Teleporte
 
         // Helper to add strategy if key exists
         const addStrategy = (provider: AIProvider, key: string, model: string, name: string) => {
-            if (key) strategies.push({ provider, key, model, name });
+            if (key || provider === 'mock') strategies.push({ provider, key, model, name });
         };
 
-        // 1. Primary Strategy (User's Preference)
+        // 1. Mock Mode
+        if (preferredModel.includes('mock')) {
+            addStrategy('mock', 'mock', preferredModel, "Mock / Demo Mode");
+            return strategies; // Return immediately for mock
+        }
+
+        // 2. Primary Strategy (User's Preference)
         // If it's a Google Model
         if (preferredModel.includes('gemini')) {
             addStrategy('google', settings.googleKey, preferredModel, "Google Native");
