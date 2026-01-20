@@ -44,6 +44,43 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                             </p>
                         </div>
 
+                        {/* Model Configuration */}
+                        <div className="space-y-4 pt-2 pb-6 border-b border-white/10">
+                            <h3 className="text-sm font-semibold text-white/80 flex items-center gap-2">
+                                <span className="w-1 h-4 bg-primary rounded-full" />
+                                Model Selection
+                            </h3>
+
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-xs text-white/60 uppercase tracking-wider font-semibold">Analyzer Model (Input)</label>
+                                    <select
+                                        value={settings.analyzerModel}
+                                        onChange={(e) => updateSettings({ analyzerModel: e.target.value })}
+                                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none font-mono text-sm appearance-none cursor-pointer hover:bg-white/5"
+                                    >
+                                        <option value="google/gemini-flash-1.5">Google Gemini Flash 1.5 (Recommended)</option>
+                                        <option value="google/gemini-pro-1.5">Google Gemini Pro 1.5</option>
+                                        <option value="openai/gpt-4o">OpenAI GPT-4o</option>
+                                        <option value="mock/demo">✨ MOCK / DEMO MODE (Free)</option>
+                                    </select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs text-white/60 uppercase tracking-wider font-semibold">Generator Model (Output)</label>
+                                    <select
+                                        value={settings.generatorModel}
+                                        onChange={(e) => updateSettings({ generatorModel: e.target.value })}
+                                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none font-mono text-sm appearance-none cursor-pointer hover:bg-white/5"
+                                    >
+                                        <option value="openai/dall-e-3">OpenAI DALL-E 3 (Recommended)</option>
+                                        <option value="openai/gpt-4o">OpenAI GPT-4o (Text Reconstruction)</option>
+                                        <option value="mock/demo">✨ MOCK / DEMO MODE (Free)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="space-y-4">
                             {/* OpenRouter */}
                             <div className="space-y-2">
