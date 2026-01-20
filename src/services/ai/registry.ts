@@ -3,7 +3,7 @@ import { OpenRouterService } from "./openrouter";
 import { OpenAIService } from "./openai";
 import type { AIService } from "./types";
 
-export type AIProvider = 'google' | 'openai' | 'openrouter';
+export type AIProvider = 'google' | 'openai' | 'openrouter' | 'mock';
 
 export class AIRegistry {
     static getService(provider: AIProvider, apiKey: string, model: string): AIService {

@@ -152,16 +152,29 @@ export function TeleporterConsole({ initialProject, onProjectLoaded }: Teleporte
                     }
                 },
                 (failedStrategy, _err) => {
-                    // Optional: Toast "Google failed, trying OpenAI..."
                     console.log(`Fallback: ${failedStrategy.name} failed. Retrying...`);
                 }
             );
 
             setPrompt(result.prompt);
             setStep('EDITING');
-        } catch (_err: any) {
-            // ...
-            // inside handleReconstruct
+        } catch (err: any) {
+            console.error(err);
+            setError(`Analysis failed after trying ${strategies.length} methods. Last error: ${err.message}`);
+            setStep('IDLE');
+        } finally {
+            setIsAnalyzing(false);
+        }
+    };
+
+    const handleReconstruct = async () => {
+        const strategies = getExecutionStrategies(settings.generatorModel || settings.analyzerModel);
+
+        setIsReconstructing(true);
+        setStep('RECONSTRUCTING');
+        setError(null);
+
+        try {
             const result = await executeWithFallback(
                 strategies,
                 async (service, _strategy) => {
