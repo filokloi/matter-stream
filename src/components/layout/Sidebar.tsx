@@ -1,5 +1,4 @@
-import React from 'react';
-import { Home, FolderOpen, Terminal, Settings } from 'lucide-react';
+import { Home, FolderOpen, Settings } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { SettingsModal } from '../settings/SettingsModal';
 import { useState } from 'react';

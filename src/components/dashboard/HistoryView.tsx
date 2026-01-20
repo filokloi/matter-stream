@@ -1,6 +1,5 @@
 import { useHistory } from '../../contexts/HistoryContext';
 import { Trash2, Calendar, FileText, Image as ImageIcon, ArrowRight } from 'lucide-react';
-import { cn } from '../../lib/utils';
 
 interface HistoryViewProps {
     onLoadProject?: (project: any) => void; // Optional: allow loading back into console

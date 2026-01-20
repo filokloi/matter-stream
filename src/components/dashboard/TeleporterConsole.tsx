@@ -151,7 +151,7 @@ export function TeleporterConsole({ initialProject, onProjectLoaded }: Teleporte
                         return await service.analyzeText(text);
                     }
                 },
-                (failedStrategy, err) => {
+                (failedStrategy, _err) => {
                     // Optional: Toast "Google failed, trying OpenAI..."
                     console.log(`Fallback: ${failedStrategy.name} failed. Retrying...`);
                 }
@@ -159,37 +159,19 @@ export function TeleporterConsole({ initialProject, onProjectLoaded }: Teleporte
 
             setPrompt(result.prompt);
             setStep('EDITING');
-        } catch (err: any) {
-            console.error(err);
-            setError(`Analysis failed after trying ${strategies.length} methods. Last error: ${err.message}`);
-            setStep('IDLE');
-        } finally {
-            setIsAnalyzing(false);
-        }
-    };
-
-    const handleReconstruct = async () => {
-        const strategies = getExecutionStrategies(settings.generatorModel);
-        if (strategies.length === 0) {
-            setError("No valid API keys found for the selected model chain. Please check Settings.");
-            return;
-        }
-
-        setIsReconstructing(true);
-        setStep('RECONSTRUCTING');
-        setError(null);
-
-        try {
+        } catch (_err: any) {
+            // ...
+            // inside handleReconstruct
             const result = await executeWithFallback(
                 strategies,
-                async (service, strategy) => {
+                async (service, _strategy) => {
                     if (file?.type.startsWith('image/')) {
                         return await service.generateImage(prompt);
                     } else {
                         return await service.generateText(prompt);
                     }
                 },
-                (failedStrategy, err) => {
+                (failedStrategy, _err) => {
                     console.log(`Fallback: ${failedStrategy.name} failed. Retrying...`);
                 }
             );
